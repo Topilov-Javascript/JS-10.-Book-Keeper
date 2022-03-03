@@ -37,6 +37,32 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal-container show-modal" id="modal">
+        <div class="modal">
+            <i class="fas fa-times close-icon" id="close-modal"></i>
+            <div class="modal-header">
+                <h3>Add Bookmark</h3>
+            </div>
+            <div class="modal-content">
+                <form id="bookmark-form">
+                    <!-- Input for Website Name -->
+                    <div class="form-group">
+                        <label for="website-name" class="form-label"> Website Name </label>
+                        <input type="text" id="website-name" class="form-input">
+                    </div>
+                    <!-- Input for Website URL -->
+                    <div class="form-group">
+                        <label for="website-url" class="form-label"> Website URL </label>
+                        <input type="text" id="website-url" class="form-input">
+                    </div>
+                    <!-- Submit Button -->
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Script -->
     <script src="./js/main.js"></script>

@@ -93,6 +93,119 @@ h1:hover {
   margin-right: 5px;
 }
 
+/* Modal */
+.modal-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: modalContainer 1s;
+}
+
+@keyframes modalContainer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.show-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  max-width: 95%;
+  width: 500px;
+  animation: modalOpen 1s;
+  border-radius: 10px;
+}
+
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-100vh);
+  } to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-container .modal .close-icon {
+  float: right;
+  color: #fff;
+  font-size: 24px;
+  position: relative;
+  top: 13px;
+  right: 13px;
+  cursor: pointer;
+}
+
+.modal-header {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 15px;
+  border-radius:  9px   9px 0 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.modal-content {
+  padding: 20px;
+  background-color: whitesmoke;
+  border-radius: 0 0 9px 9px;
+}
+
+/* Form */
+.form-group {
+  height: 55px;
+}
+
+.form-input {
+  width: 97%;
+  padding: 5px;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  display: block;
+  outline: none;
+}
+
+.form-label {
+  color: var(--primary-color);
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--primary-color);
+  height: 30px;
+  width: 100px;
+  border: none;
+  border-radius: var(--border-radius);
+  display: block;
+  margin: 10px auto 0;
+  outline: none;
+}
+
+button:hover {
+  filter: brightness(110%);
+}
+
+button:focus {
+  outline: none;
+}
+
 /* Media Query: Large Smartphone (Vertical) */
 @media screen and (max-width: 600px) {
 
