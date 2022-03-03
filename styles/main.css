@@ -102,15 +102,25 @@ h1:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  animation: modalContainer 1s;
 }
 
-@keyframes modalContainer {
+@keyframes showModalAnimation {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
+  }
+}
+
+@keyframes hideModalAnimation {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }
 
@@ -118,6 +128,15 @@ h1:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: showModalAnimation 0.7s;
+}
+
+.hide-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: hideModalAnimation 0.5s forwards;
+  /* animation: myfirst 5s linear 2s infinite alternate; */
 }
 
 .modal {
@@ -125,19 +144,38 @@ h1:hover {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
   max-width: 95%;
   width: 500px;
-  animation: modalOpen 1s;
   border-radius: 10px;
+  height: auto;
 }
 
 @keyframes modalOpen {
   from {
-    opacity: 0;
     transform: translateY(-100vh);
-  } to {
-    opacity: 1;
+  }
+
+  to {
     transform: translateY(0);
   }
 }
+
+@keyframes modalClose {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-100vh);
+  }
+}
+
+.show-modal-self {
+  animation: modalOpen 0.7s;
+}
+
+.hide-modal-self {
+  animation: modalClose 0.7s;
+}
+
 
 .modal-container .modal .close-icon {
   float: right;
@@ -153,7 +191,7 @@ h1:hover {
   background-color: var(--primary-color);
   color: #fff;
   padding: 15px;
-  border-radius:  9px   9px 0 0;
+  border-radius: 9px 9px 0 0;
 }
 
 .modal-header h3 {
