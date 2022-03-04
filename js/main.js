@@ -8,8 +8,9 @@ const websiteUrlEl = document.getElementById('website-url') /* Input for Website
 const alert = document.getElementById('alert') /* Alert for Website URL */
 const formSubmitButton = document.getElementById('form-submit-button') /* Form Submit Button for MarginTop */
 const bookmarksContainer = document.getElementById('bookmarks-container') /* Bookmarks Container to put Bookmarks into this */
+
 let modalMouseDown = 0;
-let bookmarks = []
+let bookmarks = {}
 
 // Show Modal, Focus on Input
 function showModal () {
@@ -65,15 +66,31 @@ window.addEventListener('mouseup', modalMouseUpFunction)
 
 // Validate Form
 function validate (nameValue, urlValue) {
+
+  let itHasThisLink = false
+  Object.keys(bookmarks).forEach((id) => {
+    console.log(bookmarks[id])
+    if (bookmarks[id].url===urlValue || bookmarks[id].url===`https://${urlValue}` ||
+    bookmarks[id].url === `https://${urlValue.slice(7, urlValue.length)}`) {
+      itHasThisLink = true
+    }
+  })
+  if (itHasThisLink) {
+    formSubmitButton.style.marginTop="35px"
+    alert.hidden = false
+    return false
+  }
+
   const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
   const regex = new RegExp(expression)
   if (!nameValue || !urlValue) {
-    alert('Please submit values for both fields.')
+    window.alert('Please submit values for both fields.')
     return false
-  } else if (!urlValue.match(regex)) {
-    alert('Please provide a valid web address')
+  } else if (!urlValue.match(regex) && !`https://${urlValue}`.match(regex)) {
+    window.alert('Please provide a valid web address')
     return false
   }
+
   // Valid
   return true
 }
@@ -83,8 +100,8 @@ function buildBookmarks() {
   // Remove all bookmark elements
   bookmarksContainer.innerHTML = '';
   // Build Items
-  bookmarks.forEach((el) => {
-    const {name, url} = el;
+  Object.keys(bookmarks).forEach((id) => {
+    const {name, url} = bookmarks[id];
     // Item
     const item = document.createElement('div');
     item.classList.add('item')
@@ -116,26 +133,16 @@ function fetchBookmarks() {
   // Get Bookmarks from localStorage if available
   if (localStorage.getItem('bookmarks')) {
     bookmarks = JSON.parse(localStorage.getItem('bookmarks'))
-  } else {
-    // Create bookmarks array in local storage
-    bookmarks = [];
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
   }
-  buildBookmarks()
-  // SetTimeOut console.clear() for given errors for cannot taken favicons
-  setTimeout(async function() {
-    console.clear()
-  }, 1000)
+  buildBookmarks();
 }
 
 // Delete Bookmark
-function deleteBookmark(url) {
+function deleteBookmark(id) {
   // Loop for each element
-  bookmarks.forEach((e, i, array) => {
-    if (e.url===url) {
-      bookmarks.splice(i, 1)
-    }
-  })
+  if (bookmarks[id]) {
+    delete bookmarks[id]
+  }
   // Update Bookmarks Array in localStorage, re-populate DOM
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
   fetchBookmarks()
@@ -144,39 +151,30 @@ function deleteBookmark(url) {
 // Handle Data from Form
 function storeBookmark (e) {
   e.preventDefault()
-  const nameValue = websiteNameEl.value
-  let urlValue = websiteUrlEl.value
-  // Add https to the beginning of the URL
-  if (!urlValue.includes('http://') && !urlValue.includes('https://')) {
-    urlValue = `https://${urlValue}`
-  }
+  const nameValue = websiteNameEl.value.trim()
+  let urlValue = websiteUrlEl.value.trim()
+  
   // Check if URL is not available and Check if string is not empty
   if (!validate(nameValue, urlValue)) {
     return false
   }
-  let itHasThisLink = false
-  bookmarks.forEach((e) => {
-    if (e.url===urlValue) {
-      itHasThisLink = true
-    }
-  })
-  if (itHasThisLink) {
-    formSubmitButton.style.marginTop="35px"
-    alert.hidden = false
-    return false
+
+  // Add https to the beginning of the URL
+  if (urlValue.slice(0, 7) !== 'http://' && urlValue.slice(0, 8) !== 'https://') {
+    urlValue = `https://${urlValue}`
   }
+
   const bookmark = {
     name: nameValue,
     url: urlValue
   }
-  bookmarks.push(bookmark)
+  bookmarks[urlValue] = bookmark;
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
   // Fetch Bookmarks
   fetchBookmarks()
   // Reset the form and Close Modal
   bookmarkForm.reset()
   closeModal()
-
 }
 
 // Typing URL
