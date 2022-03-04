@@ -88,8 +88,8 @@ h1:hover {
 }
 
 .container .item .name img {
-  height: 20px;
-  width: 20px;
+  height: auto;
+  width: auto;
   margin-right: 5px;
 }
 
@@ -223,6 +223,44 @@ h1:hover {
   display: block;
 }
 
+@keyframes alertShow {
+  15% {
+    transform: rotate(4deg);
+  }
+
+  45% {
+    transform: rotate(-4deg);
+  }
+
+  60% {
+    transform: rotate(2deg) scale(1.01);
+  }
+
+  70% {
+    transform: rotate(-2deg);
+  }
+
+  80% {
+    transform: rotate(0) scale(1.05);
+  }
+
+  100% {
+    transform: rotate(0) scale(1);
+  }
+}
+
+#alert {
+  margin-top: 5px;
+  border-radius: var(--border-radius);
+  padding: 3px 10px;
+  background-color: red;
+  color: #fff;
+  text-shadow: 1px 0px 5px rgba(255, 255, 255, 0.7),
+    -1px 0px 5px rgba(255, 255, 255, 0.7),
+    0px 4px 5px rgba(255, 255, 255, 0.7);
+  animation: alertShow 2s;
+}
+
 button {
   cursor: pointer;
   color: #fff;
@@ -232,8 +270,11 @@ button {
   border: none;
   border-radius: var(--border-radius);
   display: block;
-  margin: 10px auto 0;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
   outline: none;
+  transition: margin 0.3s;
 }
 
 button:hover {

@@ -1,41 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Keeper</title>
     <link rel="icon" type="image/png" href="./images/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="./styles/main.css">
 </head>
+
 <body>
-    
+
     <!-- Open Modal -->
     <h1 id="show-modal"> Add Bookmark </h1>
     <!-- Bookmarks -->
-    <div class="container" id="bookmarks-container">
-        <div class="item">
-            <i class="fas fa-times" id="delete-bookmark" title="Delete Bookmark"></i>
-            <div class="name">
-                <img src="./images/favicon.ico" alt="Icon">
-                <a href="https://topilov.netlify.com" target="_blank"> Topilov </a>
-            </div>
-        </div>
-        <div class="item">
-            <i class="fas fa-times" id="delete-bookmark" title="Delete Bookmark"></i>
-            <div class="name">
-                <img src="./images/favicon.ico" alt="Icon">
-                <a href="https://topilov.netlify.com" target="_blank"> Topilov </a>
-            </div>
-        </div>
-        <div class="item">
-            <i class="fas fa-times" id="delete-bookmark" title="Delete Bookmark"></i>        
-            <div class="name">
-                <img src="./images/favicon.ico" alt="Icon">
-                <a href="https://topilov.netlify.com" target="_blank"> Topilov </a>
-            </div>
-        </div>
-    </div>
+    <div class="container" id="bookmarks-container"></div>
 
     <!-- Modal -->
     <div class="modal-container" id="modal">
@@ -55,9 +35,10 @@
                     <div class="form-group">
                         <label for="website-url" class="form-label"> Website URL </label>
                         <input type="text" id="website-url" class="form-input">
+                        <div id="alert" class="alert" hidden>You have already entered this link</div>
                     </div>
                     <!-- Submit Button -->
-                    <button type="submit">Save</button>
+                    <button type="submit" id="form-submit-button">Save</button>
                 </form>
             </div>
         </div>
@@ -67,4 +48,5 @@
     <!-- Script -->
     <script src="./js/main.js"></script>
 </body>
+
 </html>
