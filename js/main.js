@@ -66,6 +66,15 @@ window.addEventListener('mouseup', modalMouseUpFunction)
 
 // Validate Form
 function validate (nameValue, urlValue) {
+  const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
+  const regex = new RegExp(expression)
+  if (!nameValue || !urlValue) {
+    window.alert('Please submit values for both fields.')
+    return false
+  } else if (!urlValue.match(regex) && !`https://${urlValue}`.match(regex)) {
+    window.alert('Please provide a valid web address')
+    return false
+  }
 
   let itHasThisLink = false
   Object.keys(bookmarks).forEach((id) => {
@@ -78,16 +87,6 @@ function validate (nameValue, urlValue) {
   if (itHasThisLink) {
     formSubmitButton.style.marginTop="35px"
     alert.hidden = false
-    return false
-  }
-
-  const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
-  const regex = new RegExp(expression)
-  if (!nameValue || !urlValue) {
-    window.alert('Please submit values for both fields.')
-    return false
-  } else if (!urlValue.match(regex) && !`https://${urlValue}`.match(regex)) {
-    window.alert('Please provide a valid web address')
     return false
   }
 
